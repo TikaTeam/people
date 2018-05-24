@@ -7,16 +7,27 @@ require_once 'database.php';
 set_error_handler('\Framework\handleError');
 set_exception_handler('\Framework\myException');
 
-
 class cli{
-
     public $db;
+    public $load;
 
     function __construct()
     {
 		if(config::$dbname)
 			$this->db=new database(config::$dbhost, config::$dbuser, config::$dbpass, config::$dbname, config::$dbencoding);
-	}
+
+		$this->load=new loader();
+    }
+}
+
+class loader{
+    function view($path, $data=null)
+    {
+        if($data)
+            extract($data);
+
+        require_once './app/view/'. $path . '.php';
+    }
 }
 
 class router{

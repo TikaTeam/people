@@ -1,8 +1,12 @@
 <?php
-
 class tab extends \Framework\cli {
     function home(){
+        $data= array(
+            'title' => 'Tika',
+        );
 
-		echo "hello";
+		$this->load->view('tab/header', $data);
+		$this->load->view('tab/home');
+		$this->load->view('tab/footer');
     }
 }
